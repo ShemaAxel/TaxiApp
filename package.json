@@ -1,0 +1,45 @@
+{
+  "name": "TaxiApp",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "native-base": "^2.12.0",
+    "prop-types": "^15.6.2",
+    "react": "16.6.3",
+    "react-addons-update": "^15.6.2",
+    "react-native": "0.58.5",
+    "react-native-gesture-handler": "^1.0.15",
+    "react-native-google-places": "^2.5.2",
+    "react-native-maps": "^0.23.0",
+    "react-native-material-design": "^0.3.7",
+    "react-native-router-flux": "^4.0.6",
+    "react-native-spinkit": "^1.1.1",
+    "react-native-star-rating": "^1.1.0",
+    "react-native-vector-icons": "^6.2.0",
+    "react-navigation": "^3.1.5",
+    "react-redux": "^6.0.0",
+    "react-timer-mixin": "^0.13.4",
+    "redux": "^4.0.1",
+    "redux-socket.io": "^1.4.0",
+    "redux-thunk": "^2.3.0",
+    "socket.io": "^2.2.0",
+    "superagent": "^4.1.0"
+  },
+  "devDependencies": {
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "24.0.0",
+    "jest": "24.0.0",
+    "metro-react-native-babel-preset": "0.51.1",
+    "react-test-renderer": "16.6.3",
+    "redux-logger": "^3.0.6"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
