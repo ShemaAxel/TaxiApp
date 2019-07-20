@@ -28,6 +28,7 @@ const LONGITUDE_DELTA = ASPECT_RATIO * LATITUDE_DELTA;
 //Actions
 //--------------------
 export function getCurrentLocation() {
+  console.log("getting current location");
   return dispatch => {
     navigator.geolocation.getCurrentPosition(
       position => {
@@ -46,10 +47,10 @@ export function getCurrentLocation() {
 
 export function getDriverInfo() {
   return (dispatch, store) => {
-    let id = store().home.booking.driverId;
+    let id = "5c73ba28e7179a3e36dc94d3"; // store().home.booking.driverId;
     request
-      .get("http://192.168.10.92:3000/api/driver/" + id)
-      .finish((erroe, res) => {
+      .get("http://192.168.24.160:3000/api/driver/" + id)
+      .finish((error, res) => {
         dispatch({
           type: GET_DRIVER_INFORMATION,
           payload: res.body
@@ -60,11 +61,12 @@ export function getDriverInfo() {
 
 //Get initial driver location
 export function getDriverLocation() {
-  return (dispatch, store) => {
-    let id = store().home.booking.driverId;
+  console.log("getting driver location");
+  return dispatch => {
+    let id = "5c73c005e7179a3e36dc9770"; //store().home.booking.driverId;
     request
-      .get("http://192.168.10.92:3000/api/driverLocation/" + id)
-      .finish((erroe, res) => {
+      .get("http://192.168.24.160:3000/api/driverLocation/" + id)
+      .finish((error, res) => {
         dispatch({
           type: GET_DRIVER_LOCATION,
           payload: res.body
@@ -76,28 +78,32 @@ export function getDriverLocation() {
 //get distance from driver
 export function getDistanceFromDriver() {
   return (dispatch, store) => {
-    if (store().trackDriver.driverLocation) {
-      request
-        .get("https://maps.googleapis.com/maps/api/distancematrix/json")
-        .query({
-          origins:
-            store().home.selectedAddress.selectedPickUp.latitude +
-            "," +
-            store().home.selectedAddress.selectedPickUp.longitude,
-          destinations:
-            store().trackDriver.driverLocation.coordinate.coordinates[1] +
-            "," +
-            store().trackDriver.driverLocation.coordinate.coordinates[0],
-          mode: "driving",
-          key: "AIzaSyDUYbTR-3PDWPhgxjENs4yf35g2eHc641s"
-        })
-        .finish((error, res) => {
-          dispatch({
-            type: GET_DISTANCE_FROM_DRIVER,
-            payload: res.body
-          });
+    // if (store().trackDriver.driverLocation) {
+    request
+      .get("https://maps.googleapis.com/maps/api/distancematrix/json")
+      .query({
+        origins:
+          -1.9555534 +
+          //store().home.selectedAddress.selectedPickUp.latitude +
+          "," +
+          -1.9555534,
+        // store().home.selectedAddress.selectedPickUp.longitude,
+        destinations:
+          -1.949999999999985 +
+          // store().trackDriver.driverLocation.coordinate.coordinates[1] +
+          "," +
+          30.1011725,
+        // store().trackDriver.driverLocation.coordinate.coordinates[0],
+        mode: "driving",
+        key: "AIzaSyDUYbTR-3PDWPhgxjENs4yf35g2eHc641s"
+      })
+      .finish((error, res) => {
+        dispatch({
+          type: GET_DISTANCE_FROM_DRIVER,
+          payload: res.body
         });
-    }
+      });
+    // }//removed
   };
 }
 
@@ -168,7 +174,12 @@ const ACTION_HANDLERS = {
   GET_DISTANCE_FROM_DRIVER: handleGetDistanceFromDriver
 };
 const initialState = {
-  region: {},
+  region: {
+    latitude: -1.9537,
+    longitude: 30.1069,
+    latitudeDelta: 0.2,
+    longitudeDelta: 0.04
+  },
   showDriverFound: true
 };
 

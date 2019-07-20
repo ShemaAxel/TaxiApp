@@ -7,13 +7,17 @@ import MapTrack from "./MapTrack";
 import DriverFound from "./DriverFound";
 import DriverFooterProfile from "./DriverFooterProfile";
 import DriverOnTheWayFooter from "./DriverOnTheWayFooter";
+
 const carMarker = require("../../../assets/img/carMarker.png");
 class TrackDriver extends React.Component {
   componentDidMount() {
     this.props.getCurrentLocation();
+    //
     this.props.getDriverInfo();
+    // this.props.getDistanceFromDriver();
   }
   componentWillReceiveProps(nextProps) {
+    //refresh eeach 3 seconds
     if (
       this.props.driverLocation &&
       nextProps.driverLocation !== this.props.driverLocation
@@ -32,7 +36,6 @@ class TrackDriver extends React.Component {
     return (
       <Container>
         <View style={{ flex: 1 }}>
-          <HeaderComponent />
           {this.props.region && (
             <MapTrack
               region={this.props.region}

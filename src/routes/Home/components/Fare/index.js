@@ -8,7 +8,7 @@ export const Fare = ({ fare }) => {
   return (
     <View style={styles.fareContainer}>
       <Text>
-        <Text style={styles.fareText}> FARE:</Text>
+        <Text style={styles.fareText}> Estimated AMOUNT:</Text>
         <Text style={styles.amount}>{fare} Rwf</Text>
       </Text>
     </View>

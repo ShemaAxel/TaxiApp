@@ -8,7 +8,7 @@ import createSocketIoMiddleware from "redux-socket.io";
 import io from "socket.io-client/dist/socket.io";
 
 //
-let socket = io("http://192.168.10.87:3000", { jsonp: false }); //change this ip to 192.168.10.87:3000
+let socket = io("http://192.168.24.160:3000", { jsonp: false }); //change this ip to 192.168.10.87:3000
 let socketIoMiddleware = createSocketIoMiddleware(socket, "server/");
 
 const log = createLogger({ diff: true, collapsed: true });

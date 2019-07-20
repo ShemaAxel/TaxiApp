@@ -35,6 +35,8 @@ router.post("/bookings", function(req, res, next) {
       res.json(savedBooking);
       if (nearByDriver.socketId) {
         console.log("Emitted");
+
+        //change booking status to 1
         io.emit(nearByDriver.socketId + "driverRequest", savedBooking);
       } else {
         console.log("Driver not connected");

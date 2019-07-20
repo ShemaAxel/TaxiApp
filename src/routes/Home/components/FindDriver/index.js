@@ -3,9 +3,12 @@ import { Text } from "react-native";
 import { View, Button } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 
+import { Actions } from "react-native-router-flux";
+
 import styles from "./FindDriverStyles";
 export const FindDriver = ({ selectedAddress }) => {
   const { selectedPickUp, selectedDropOff } = selectedAddress || {};
+
   return (
     <View style={styles.findDriverContainer}>
       <View style={styles.content}>
@@ -24,13 +27,17 @@ export const FindDriver = ({ selectedAddress }) => {
           <Text style={styles.termsText}>
             By booking you confirm that you accept our T & C
           </Text>
-          <Button style={styles.cancelBtn}>
-            <Text style={styles.cancelBtnText}>Cancel</Text>
+          <Button style={styles.cancelBtn} onPress={track}>
+            <Text style={styles.cancelBtnText}>Next</Text>
           </Button>
         </View>
       </View>
     </View>
   );
+};
+
+const track = () => {
+  Actions.trackDriver();
 };
 
 export default FindDriver;

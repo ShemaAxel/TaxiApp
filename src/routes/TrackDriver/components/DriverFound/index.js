@@ -6,6 +6,10 @@ import styles from "./DriverFoundStyles.js";
 
 export const DriverFound = ({ driverInfo, getDriverLocation }) => {
   //driverImage
+
+  //refresh driverLocation
+  this.interval = setInterval(() => getDriverLocation(), 3000);
+
   const { profilePic } = driverInfo || "";
   const { vehicle } = driverInfo || {};
   return (
@@ -24,7 +28,7 @@ export const DriverFound = ({ driverInfo, getDriverLocation }) => {
             <Text style={styles.nameText}>
               {driverInfo.firstName} {driverInfo.lastName}
             </Text>
-            <Text style={styles.bioText}>and I am 0.2km away.</Text>
+            <Text style={styles.bioText}>I am on my away.</Text>
           </View>
           <Text style={styles.quotationMarkRight}>""</Text>
         </View>

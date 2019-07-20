@@ -59,16 +59,18 @@ router.get("/driverLocation", function(req, res, next) {
 });
 //Get Single Driver and emit track by user to driver
 router.get("/driverLocation/:id", function(req, res, next) {
+  console.log("riverLocation: " + req.params.id);
   var io = req.app.io;
-  db.driversLocation.findOne({ driverId: req.params.id }, function(
+  db.driversLocation.findOne({ _id: mongojs.ObjectId(req.params.id) }, function(
     err,
     location
   ) {
     if (err) {
       res.send(err);
     }
+    console.log(location);
     res.send(location);
-    io.emit("trackDriver", location);
+    //io.emit("trackDriver", location);
   });
 });
 
@@ -76,6 +78,7 @@ router.get("/driverLocation/:id", function(req, res, next) {
 router.put("/driverLocation/:id", function(req, res, next) {
   var io = req.app.io;
   var location = req.body;
+  console.log("Location:" + JSON.stringify(location));
   var latitude = parseFloat(location.latitude);
   var longitude = parseFloat(location.longitude);
   if (!location) {
@@ -97,7 +100,7 @@ router.put("/driverLocation/:id", function(req, res, next) {
       },
       function(err, updateDetails) {
         if (err) {
-          console.log(updateDetails);
+          console.log("Updated details:" + updateDetails);
           res.send(err);
         }
         if (updateDetails) {
@@ -107,8 +110,10 @@ router.put("/driverLocation/:id", function(req, res, next) {
             function(error, updatedLocation) {
               if (error) {
                 res.send(error);
+                console.log(error);
               }
               res.send(updatedLocation);
+              console.log(updatedLocation);
               io.emit("action", {
                 type: "UPDATE_DRIVER_LOCATION",
                 payload: updatedLocation

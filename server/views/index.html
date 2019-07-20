@@ -75,36 +75,39 @@
 
       //When emited by user on random nearby driver
 
-      var driverRequest = socket.id + "driverRequest";
-      socket.on(driverRequest, function(passengerData) {
-        console.log("Passenger looking for a driver", passengerData);
+      //if status in booking is 1 go from sockets to statuses
 
-        // //Update booking status to confirmed on btn click
-        $(".btn").click(function(e) {
-          //e.preventDefault();
+      //var driverRequest = socket.id + "driverRequest";
+      // socket.on(driverRequest, function(passengerData) {
+      //console.log("Passenger looking for a driver", passengerData);
 
-          var status = $("#bookingStatus").val();
-          var dataToSend = {
-            driverId: "5c73ba28e7179a3e36dc94d3",
-            id: passengerData._id,
-            status: status
-          };
-          $.ajax({
-            type: "PUT",
-            url: "/api/bookings/" + passengerData._id,
-            dataType: "json",
-            data: dataToSend
-          }).done(function(response) {
-            // Check for a successful (blank) response
-            if (response !== "") {
-              console.log("Success");
-            } else {
-              console.log("Error: " + response);
-            }
-          });
+      // //Update booking status to confirmed on btn click
+      $(".btn").click(function(e) {
+        e.preventDefault();
+
+        var status = $("#bookingStatus").val();
+        var dataToSend = {
+          driverId: "5c73ba28e7179a3e36dc94d3",
+          id: "5ce7f1657e81b575c8f17a42", // passengerData._id,
+          status: status
+        };
+        $.ajax({
+          type: "PUT",
+          url: "/api/bookings/5ce7f1657e81b575c8f17a42", // + passengerData._id,
+          dataType: "json",
+          data: dataToSend
+        }).done(function(response) {
+          // Check for a successful (blank) response
+          if (response !== "") {
+            console.log("Success");
+          } else {
+            console.log("Error: " + response);
+          }
         });
       });
+      // });
 
+      //update location
       socket.on("trackDriver", function(location) {
         var driverMovement = [
           {

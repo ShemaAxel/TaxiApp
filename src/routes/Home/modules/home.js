@@ -153,6 +153,7 @@ export function getSelectedAddress(payload) {
 
 export function bookCar() {
   return (dispatch, store) => {
+    const date = new Date();
     const nearByDrivers = store().home.nearByDrivers;
     const nearByDriver =
       nearByDrivers[Math.floor(Math.random() * nearByDrivers.length)]; //random driver
@@ -173,7 +174,9 @@ export function bookCar() {
           longitude: store().home.selectedAddress.selectedDropOff.latitude
         },
         fare: store().home.fare,
-        status: "pending"
+        status: "pending",
+        peaked: 0,
+        date: date
       },
       nearByDriver: {
         // nearby
@@ -183,9 +186,9 @@ export function bookCar() {
         longitude: nearByDriver.coordinate.coordinates[0]
       }
     };
-    console.log("payload ", payload);
+    // console.log("payload ", payload);
     request
-      .post("http://192.168.10.92:3000/api/bookings")
+      .post("http://192.168.24.160:3000/api/bookings")
       .set("Content-Type", "application/json")
       .send(payload)
       .finish((error, res) => {
@@ -201,7 +204,7 @@ export function bookCar() {
 export function getNearByDrivers() {
   return (dispatch, store) => {
     request
-      .get("http://192.168.10.92:3000/api/driverLocation")
+      .get("http://192.168.24.160:3000/api/driverLocation")
       .query({
         latitude: store().home.region.latitude,
         longitude: store().home.region.longitude
@@ -343,13 +346,12 @@ function handleGetNearbyDrivers(state, action) {
   });
 }
 //
-function handleBookingConfirmed(state, action){
+function handleBookingConfirmed(state, action) {
   return update(state, {
-      booking:{
-          $set: action.payload
-      }
+    booking: {
+      $set: action.payload
+    }
   });
-
 }
 //Action handlers
 
